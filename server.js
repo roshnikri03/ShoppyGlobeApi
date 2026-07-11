@@ -1,10 +1,24 @@
-const express = require('express');
-const mongoose = require('mongoose');
+// Route imports
+import express from 'express';
+import mongoose from 'mongoose';
+import authRoutes from './routes/authRoutes.js';
+import productRoutes from './routes/productRoutes.js';
+import cartRoutes from './routes/cartRoutes.js';
 
 const app = express();
 
 // Middleware
 app.use(express.json());
+
+// Mount routes
+app.use('/auth', authRoutes); // Alternatively, you can mount register/login on root or /users
+app.use('/products', productRoutes);
+app.use('/cart', cartRoutes);
+
+// Basic route
+app.get('/', (req, res) => {
+  res.send('ShoppyGlobe API is running...');
+});
 
 app.listen(3000, () => {
   console.log('Server is running on port 3000');
